@@ -8,6 +8,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { TimeclockComponent } from './timeclock/timeclock.component';
 import { MatButtonModule } from '@angular/material';
+import { AuthService } from './auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+// import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,11 @@ import { MatButtonModule } from '@angular/material';
     AngularFirestoreModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AngularFireAuth,
+    // Router
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,9 @@ export class AppComponent {
   title = 'time-tracker';
   testDb;
 
-  constructor(db: AngularFirestore) {
+  constructor(private db: AngularFirestore,
+              public auth: AuthService) {
+    this.auth.anonymousLogin().then(() => {console.log('test')});
     this.testDb = db.collection('test').valueChanges();
   }
 }

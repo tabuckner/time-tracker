@@ -3,3 +3,5 @@
 <ul>
   <li *ngFor="let item of testDb | async">OUT: {{ item.punchIn }}, IN: {{ item.punchOut }}, {{ item.test }}</li>
 </ul>
+
+UID: {{ this.auth.userId }}
