@@ -1,1 +1,5 @@
 <app-timeclock></app-timeclock>
+
+<ul>
+  <li *ngFor="let item of testDb | async">OUT: {{ item.punchIn }}, IN: {{ item.punchOut }}, {{ item.test }}</li>
+</ul>

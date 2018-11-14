@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-timeclock',
@@ -7,17 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TimeclockComponent implements OnInit {
 
-  constructor() { }
+  constructor(private db: AngularFirestore) { }
 
   ngOnInit() {
   }
 
   public onPunchIn() {
     console.log(`Clockin In At: ${this.getCurrentTime()}`);
+    this.db.collection('test').add({test: this.getCurrentTime(), punchIn: true, punchOut: false});
   }
 
   public onPunchOut() {
     console.log(`Clockin Out At: ${this.getCurrentTime()}`);
+    this.db.collection('test').add({test: this.getCurrentTime(), punchIn: false, punchOut: true});
   }
 
   public getCurrentTime() {
