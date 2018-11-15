@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { DatabaseService } from '../../core/database.service';
 
 const MOCK_DATA = [
   { 'punchIn': false, 'punchOut': true, 'test': '1:00' },
@@ -20,20 +21,23 @@ const MOCK_DATA = [
   styleUrls: ['./timeclock-table.component.scss']
 })
 export class TimeclockTableComponent implements OnInit {
-  timeData = new MatTableDataSource<any>(MOCK_DATA);
+  timeData: MatTableDataSource<any>;
   displayedColumns: string[] = ['punchIn', 'punchOut', 'test'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() {}
+  constructor(private db: DatabaseService) {}
 
   ngOnInit() {
-    this.timeData.paginator = this.paginator;
-    console.log(MOCK_DATA);
+    this.db.getItems().subscribe((items) => {
+      console.log(items);
+      this.timeData = new MatTableDataSource<any>(items);
+      this.timeData.paginator = this.paginator;
+    });
   }
 
   public initTable() {
-    this.timeData.paginator = this.paginator;
+    // this.timeData.paginator = this.paginator;
   }
 
   public getIcon(value: boolean) {
