@@ -1,7 +1,15 @@
-<div class="time-clock">
-  <div class="time-clock__current-time"></div>
-  <div class="time-clock__buttons">
-    <button mat-button (click)="onPunchIn()">Punch In</button>
-    <button mat-button (click)="onPunchOut()">Punch Out</button>
-  </div>
-</div>
+<mat-card class="mat-elevation-z3">
+  <mat-card-title>Track That Time!</mat-card-title>
+  <mat-card-content>
+    <div class="time-clock">
+      <div class="time-clock__current-time"></div>
+      <app-timeclock-table></app-timeclock-table>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="time-clock__buttons">
+      <button mat-raised-button color="primary" (click)="onPunchIn()">Punch In</button>
+      <button mat-raised-button color="accent" (click)="onPunchOut()">Punch Out</button>
+    </div>
+  </mat-card-actions>
+</mat-card>

@@ -3,31 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
-import { TimeclockComponent } from './timeclock/timeclock.component';
-import { MatButtonModule } from '@angular/material';
-import { AuthService } from './auth.service';
-import { AngularFireAuth } from '@angular/fire/auth';
+
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
+import { TimeclockModule } from './timeclock/timeclock.module';
+import { LayoutModule } from './layout/layout.module';
 // import { Router } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TimeclockComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    MatButtonModule
-  ],
-  providers: [
-    AuthService,
-    AngularFireAuth,
-    // Router
+    CoreModule,
+    SharedModule,
+    TimeclockModule,
+    LayoutModule
   ],
   bootstrap: [AppComponent]
 })

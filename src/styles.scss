@@ -2,3 +2,23 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.text {
+  &--muted {
+    opacity: .66;
+  }
+
+  &--small {
+    font-size: 12px;
+  }
+
+  &--color {
+    &--success {
+      color: #4BB543;
+    }
+
+    &--warn {
+      color: #B33A3A;
+    }
+  }
+}

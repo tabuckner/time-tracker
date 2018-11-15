@@ -43,10 +43,6 @@ export class AuthService {
       .catch((e) => { console.error(e); });
   }
 
-  public anonymousLoginHandler() {
-
-  }
-
   public googleLogin() {
     const provider = new auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
