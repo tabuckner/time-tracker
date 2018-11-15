@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #e4e4e4; }
 
 .text {
   &--muted {
@@ -19,6 +19,41 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
     &--warn {
       color: #B33A3A;
+    }
+  }
+}
+
+.m {
+  &--0 {
+    margin: 0;
+  }
+  &--none {
+    @extend .m--0;
+  }
+  &--t {
+    &--1 {
+      margin-top: 24px;
+    }
+    &--2 {
+      margin-top: 48px;
+    }
+  }
+  &--b {
+    &--1 {
+      margin-bottom: 24px;
+    }
+    &--2 {
+      margin-bottom: 48px;
+    }
+  }
+  &--v {
+    &--1 {
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    &--2 {
+      margin-top: 48px;
+      margin-bottom: 48px;
     }
   }
 }
