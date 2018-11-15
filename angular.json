@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "deployUrl": "/",
             "outputPath": "dist/time-tracker",
             "index": "src/index.html",
             "main": "src/main.ts",
