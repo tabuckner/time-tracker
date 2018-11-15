@@ -7,13 +7,11 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  currentUserId: string = 'aK89DiZpPMRUvXKZZjNYPsCa3k43'
+  currentUserId: string;
 
   constructor(private auth: AuthService) {}
 
   ngOnInit() {
-
+    // Get the current user ID from Auth.
   }
-
-
 }

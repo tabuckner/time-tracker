@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { DatabaseService } from '../core/database.service';
+import { TimePunch } from '../core/models/time-punch.class';
 
 @Component({
   selector: 'app-timeclock',
@@ -8,22 +9,24 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class TimeclockComponent implements OnInit {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: DatabaseService) {}
 
   ngOnInit() {
   }
 
   public onPunchIn() {
     console.log(`Clockin In At: ${this.getCurrentTime()}`);
-    this.db.collection('test').add({test: this.getCurrentTime(), punchIn: true, punchOut: false});
+    const newEntry = new TimePunch({ userId: 'testUserIdString', punchIn: true, punchOut: false, time: this.getCurrentTime() });
+    this.db.addEntry(newEntry);
   }
 
   public onPunchOut() {
     console.log(`Clockin Out At: ${this.getCurrentTime()}`);
-    this.db.collection('test').add({test: this.getCurrentTime(), punchIn: false, punchOut: true});
+    const newEntry = new TimePunch({ userId: 'testUserIdString', punchIn: false, punchOut: true, time: this.getCurrentTime() });
+    this.db.addEntry(newEntry);
   }
 
-  public getCurrentTime() {
+  public getCurrentTime(): string {
     return new Date().toISOString();
   }
 }
