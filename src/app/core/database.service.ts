@@ -10,8 +10,8 @@ export class DatabaseService {
   constructor(private db: AngularFirestore) { }
 
   addEntry(entry) {
-    // console.log(entry);
-    this.db.collection(this.collectionName)
-      .add({...entry});
+    console.log(entry);
+    // this.db.collection(this.collectionName)
+    //   .add({...entry});
   }
 }
