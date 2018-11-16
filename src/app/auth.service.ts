@@ -13,6 +13,7 @@ export class AuthService {
 
   public setUserId(id: string) {
     this.userId = id;
+    console.log(this.userId);
   }
 
   public getUserId(): string {
