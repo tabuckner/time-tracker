@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../core/database.service';
-import { TimePunch } from '../core/models/time-punch.class';
 
 @Component({
   selector: 'app-timeclock',
@@ -9,20 +8,26 @@ import { TimePunch } from '../core/models/time-punch.class';
 })
 export class TimeclockComponent implements OnInit {
 
-  constructor(private db: DatabaseService) {}
+  constructor(private db: DatabaseService) { }
 
   ngOnInit() {
   }
 
   public onPunchIn() {
-    console.log(`Clockin In At: ${this.getCurrentTime()}`);
-    const newEntry = new TimePunch({ userId: 'testUserIdString', punchIn: true, punchOut: false, time: this.getCurrentTime() });
+    const newEntry = {
+      punchIn: true,
+      punchOut: false,
+      time: this.getCurrentTime()
+    };
     this.db.addEntry(newEntry);
   }
 
   public onPunchOut() {
-    console.log(`Clockin Out At: ${this.getCurrentTime()}`);
-    const newEntry = new TimePunch({ userId: 'testUserIdString', punchIn: false, punchOut: true, time: this.getCurrentTime() });
+    const newEntry = {
+      punchIn: false,
+      punchOut: true,
+      time: this.getCurrentTime()
+    };
     this.db.addEntry(newEntry);
   }
 

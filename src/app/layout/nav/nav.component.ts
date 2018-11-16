@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from 'src/app/auth.service';
 import { Subscription } from 'rxjs';
 
@@ -8,15 +8,17 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit, OnDestroy {
-  currentUserId: string;
+  public currentUserId = 'No User Id';
   public subs = new Subscription();
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService,
+              private cd: ChangeDetectorRef) { }
 
   public ngOnInit() {
     this.subs.add(
       this.auth.getUserIdListener().subscribe((newUserId) => {
         this.currentUserId = newUserId;
+        this.cd.detectChanges();
       })
     );
   }

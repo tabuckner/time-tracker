@@ -8,11 +8,15 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  loading = true;
   title = 'time-tracker';
 
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService) { }
 
   public ngOnInit() {
-    this.auth.anonymousLogin();
+    this.auth.anonymousLogin()
+      .then(() => {
+        this.loading = false;
+      });
   }
 }

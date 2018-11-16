@@ -7,5 +7,6 @@ export const environment = {
     projectId: 'time-tracker-a87b5',
     storageBucket: 'time-tracker-a87b5.appspot.com',
     messagingSenderId: '969017736901'
-  }
+  },
+  firebaseCollectionName: 'production'
 };
