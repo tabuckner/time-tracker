@@ -1,71 +1,45 @@
 import { Injectable } from '@angular/core';
-// import { Router } from '@angular/router';
-
-import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-
-interface User {
-  uid: string;
-  email: string;
-  photoURL?: string;
-  displayName?: string;
-  favoriteColor?: string;
-}
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class AuthService {
   userId: string;
-  user: Observable<User>;
+  userIdUpdated = new Subject<string>();
 
-  constructor(private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    /* private router: Router */) {
+  constructor(private afAuth: AngularFireAuth) {
+  }
 
-    // Get auth data, then get firestore user document || null
-    this.user = this.afAuth.authState.pipe(
-      switchMap(user => {
-        if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        } else {
-          return of(null);
-        }
-      })
-    );
+  public setUserId(id: string) {
+    this.userId = id;
+  }
+
+  public getUserId(): string {
+    return this.userId;
+  }
+
+  public getUserIdListener(): Observable<string> {
+    return this.userIdUpdated.asObservable();
   }
 
   public anonymousLogin() {
-    return this.afAuth.auth.signInAnonymously()
-      .then((a) => { console.log(a); this.userId = a.user.uid; })
-      .catch((e) => { console.error(e); });
+    return new Promise((res, rej) => {
+      this.afAuth.auth.signInAnonymously()
+        .then((a) => {
+          this.anonymousLoginHandler(a);
+          res();
+        })
+        .catch((e) => {
+          console.error(e);
+          rej(e);
+        });
+    });
   }
 
-  public googleLogin() {
-    const provider = new auth.GoogleAuthProvider();
-    return this.oAuthLogin(provider);
-  }
-
-  private oAuthLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) => {
-        this.updateUserData(credential.user);
-      });
-  }
-
-  private updateUserData(user) {
-    // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const data: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL
-    };
-
-    return userRef.set(data, { merge: true });
+  public anonymousLoginHandler(a) {
+    this.setUserId(a.user.uid);
+    this.userIdUpdated.next(this.getUserId());
   }
 
   signOut() {

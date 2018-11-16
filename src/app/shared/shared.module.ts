@@ -1,6 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatCardModule, MatTableModule, MatPaginatorModule, MatToolbarModule, MatIconModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -10,7 +18,8 @@ import { MatButtonModule, MatCardModule, MatTableModule, MatPaginatorModule, Mat
     MatTableModule,
     MatPaginatorModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   declarations: [],
   exports: [
@@ -19,7 +28,8 @@ import { MatButtonModule, MatCardModule, MatTableModule, MatPaginatorModule, Mat
     MatTableModule,
     MatPaginatorModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule { }

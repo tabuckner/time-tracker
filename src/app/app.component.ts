@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 
@@ -7,13 +7,16 @@ import { AuthService } from './auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  loading = true;
   title = 'time-tracker';
-  testDb;
 
-  constructor(private db: AngularFirestore,
-              public auth: AuthService) {
-    this.auth.anonymousLogin().then(() => {console.log('test')});
-    this.testDb = db.collection('test').valueChanges();
+  constructor(public auth: AuthService) { }
+
+  public ngOnInit() {
+    this.auth.anonymousLogin()
+      .then(() => {
+        this.loading = false;
+      });
   }
 }
