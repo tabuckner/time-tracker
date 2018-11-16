@@ -1,6 +1,7 @@
 <app-nav></app-nav>
-<div class="container">
-  <app-timeclock></app-timeclock>
+<div class="container" [ngClass]="{'container--is-loading': loading}">
+  <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+  <app-timeclock *ngIf="!loading"></app-timeclock>
 </div>
 
 UID: {{ this.auth.userId }}

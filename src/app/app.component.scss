@@ -1,4 +1,14 @@
 .container {
   max-width: 750px;
   margin: auto;
+  position: relative;
+
+  &--is-loading {
+    width: 100vw;
+    height: 100vh;
+    max-width: initial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

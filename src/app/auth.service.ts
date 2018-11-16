@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable, Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -24,9 +24,17 @@ export class AuthService {
   }
 
   public anonymousLogin() {
-    return this.afAuth.auth.signInAnonymously()
-      .then(a => this.anonymousLoginHandler(a))
-      .catch((e) => { console.error(e); });
+    return new Promise((res, rej) => {
+      this.afAuth.auth.signInAnonymously()
+        .then((a) => {
+          this.anonymousLoginHandler(a);
+          res();
+        })
+        .catch((e) => {
+          console.error(e);
+          rej(e);
+        });
+    });
   }
 
   public anonymousLoginHandler(a) {
