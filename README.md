@@ -1,4 +1,5 @@
 # TimeTracker
+View a [Live Demo](https://tabuckner.github.io/time-tracker/)!
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.6.
 
