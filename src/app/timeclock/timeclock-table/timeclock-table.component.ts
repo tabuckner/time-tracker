@@ -45,6 +45,7 @@ export class TimeclockTableComponent implements OnInit, OnDestroy {
 
   public setTableData(data: any[]) {
     this.timeData = new MatTableDataSource<any>(data);
+    this.timeData.paginator = this.paginator;
   }
 
   public getIcon(value: boolean) {
