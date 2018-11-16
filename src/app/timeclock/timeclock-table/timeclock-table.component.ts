@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { DatabaseService } from '../../core/database.service';
+import { Subscription } from 'rxjs';
 
 const MOCK_DATA = [
   { 'punchIn': false, 'punchOut': true, 'test': '1:00' },
@@ -20,24 +21,30 @@ const MOCK_DATA = [
   templateUrl: './timeclock-table.component.html',
   styleUrls: ['./timeclock-table.component.scss']
 })
-export class TimeclockTableComponent implements OnInit {
+export class TimeclockTableComponent implements OnInit, OnDestroy {
   timeData: MatTableDataSource<any>;
   displayedColumns: string[] = ['punchIn', 'punchOut', 'test'];
+  subs = new Subscription();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private db: DatabaseService) {}
+  constructor(private db: DatabaseService) { }
 
   ngOnInit() {
-    this.db.getItems().subscribe((items) => {
-      console.log(items);
-      this.timeData = new MatTableDataSource<any>(items);
-      this.timeData.paginator = this.paginator;
-    });
+    this.setTableData(this.db.getTimePunches());
+    this.subs.add(
+      this.db.getTimePunchesListener().subscribe((updatedTimePunches) => {
+        this.setTableData(updatedTimePunches);
+      })
+    );
   }
 
-  public initTable() {
-    // this.timeData.paginator = this.paginator;
+  public ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+
+  public setTableData(data: any[]) {
+    this.timeData = new MatTableDataSource<any>(data);
   }
 
   public getIcon(value: boolean) {
